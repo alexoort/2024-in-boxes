@@ -6,8 +6,8 @@ import { getCasualties } from "../lib/db";
 export interface Casualty {
   name: string;
   en_name: string;
-  age?: number;
-  dob?: string;
+  age?: number | null;
+  dob?: string | null;
 }
 
 export async function getNames(): Promise<Casualty[]> {
@@ -21,8 +21,8 @@ export async function getNames(): Promise<Casualty[]> {
     return casualties.map((casualty) => ({
       name: casualty.name || "Unknown",
       en_name: casualty.en_name || "",
-      age: casualty.age,
-      dob: casualty.dob,
+      age: casualty.age || null,
+      dob: casualty.dob || null,
     }));
   } catch (error) {
     console.error("Error fetching names:", error);
