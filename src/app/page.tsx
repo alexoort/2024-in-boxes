@@ -2,36 +2,32 @@ import BoxGrid from "./box";
 import InfoText from "./info/InfoText";
 import Title from "./title";
 import IntroContent from "./info/Intro";
+import DeathsGraph from "./info/deaths-graph";
+import { SummaryData, fetchSummaryData } from "./data/summary-info";
+import { getNames } from "./data/names";
 
-export default function Home() {
+export default async function Home() {
+  const [summaryData, names] = await Promise.all([
+    fetchSummaryData(),
+    getNames(),
+  ]);
+
   return (
     <main className="min-h-screen">
-      <Title />
-      {/* Using with a custom component */}
-      <InfoText content={<IntroContent />} startBox={200} endBox={300} />
+      <InfoText content={<IntroContent />} startBox={100} endBox={200} />
 
-      {/* Using with simple string content */}
       <InfoText
-        content="Another interesting statistic about incarceration in America..."
+        content={<DeathsGraph />}
         startBox={300}
         endBox={400}
-        source="4"
+        source="Tech For Palestine"
       />
 
-      {/* Using with inline JSX */}
-      <InfoText
-        content={
-          <div className="flex flex-col gap-2">
-            <span className="text-2xl font-bold">2.3 million</span>
-            <span>Americans are currently incarcerated</span>
-          </div>
-        }
-        startBox={800}
-        endBox={900}
-        source="5"
+      <BoxGrid
+        total={summaryData.gaza.killed.total}
+        names={names}
+        namesStart={500}
       />
-
-      <BoxGrid />
     </main>
   );
 }

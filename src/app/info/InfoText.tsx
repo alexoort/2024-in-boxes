@@ -1,6 +1,6 @@
 "use client";
-/* eslint-disable react/no-unescaped-entities */
 import { useEffect, useState, ReactNode } from "react";
+import { useScrolledBoxes } from "../HandleScroll";
 
 interface InfoTextProps {
   content: ReactNode;
@@ -16,23 +16,26 @@ export default function InfoText({
   endBox = 300,
 }: InfoTextProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const scrolledBoxes = useScrolledBoxes();
 
   useEffect(() => {
-    const handleScroll = () => {
-      const boxHeight = 120; // Height of each box
-      const boxesScrolled = Math.floor(window.scrollY / boxHeight);
-
-      setIsVisible(boxesScrolled >= startBox && boxesScrolled < endBox);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [startBox, endBox]);
+    setIsVisible(scrolledBoxes >= startBox && scrolledBoxes < endBox);
+  }, [scrolledBoxes, startBox, endBox]);
 
   if (!isVisible) return null;
 
   return (
-    <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 p-6 bg-sky-100 mx-auto max-w-4xl rounded-lg shadow-md">
+    <div
+      className="fixed left-1/2 transform -translate-x-1/2 z-10 p-6 bg-sky-100 mx-auto rounded-lg shadow-md"
+      style={{
+        top: "50%",
+        transform: "translate(-50%, -50%)",
+        maxHeight: "90vh",
+        overflowY: "auto",
+        width: "70%",
+        maxWidth: "1200px",
+      }}
+    >
       <div className="text-lg">{content}</div>
       {source && (
         <div className="text-right mt-2 text-sky-800">
