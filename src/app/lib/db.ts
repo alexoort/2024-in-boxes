@@ -1,4 +1,18 @@
-import { Pool } from 'pg';
+import { Pool, QueryResult, QueryResultRow } from 'pg';
+
+interface ExistsResult {
+  exists: boolean;
+}
+
+interface Casualty {
+  name: string;
+  en_name: string;
+  id: string;
+  dob: string | null;
+  sex: string;
+  age: number | null;
+  source: string;
+}
 
 // Log database configuration (without sensitive data)
 console.log('Database config:', {
@@ -23,11 +37,11 @@ const pool = new Pool({
   }
 });
 
-export async function query(text: string, params?: any[]) {
+export async function query<T extends QueryResultRow>(text: string, params?: unknown[]): Promise<QueryResult<T>> {
   let client;
   try {
     client = await pool.connect();
-    const result = await client.query(text, params);
+    const result = await client.query<T>(text, params);
     return result;
   } catch (err) {
     const error = err as Error;
@@ -42,10 +56,9 @@ export async function query(text: string, params?: any[]) {
   }
 }
 
-export async function getCasualties() {
+export async function getCasualties(): Promise<Casualty[]> {
   try {
-    // First test if table exists
-    const tableExists = await query(`
+    const tableExists = await query<ExistsResult>(`
       SELECT EXISTS (
         SELECT FROM information_schema.tables 
         WHERE table_name = 'casualties'
@@ -56,14 +69,14 @@ export async function getCasualties() {
       throw new Error('Casualties table does not exist');
     }
 
-    const result = await query(`
+    const result = await query<Casualty>(`
       SELECT 
         name, en_name, id, dob, sex, age, source
       FROM casualties 
       ORDER BY created_at DESC
       LIMIT 1000
     `);
-    console.log(`Retrieved ${result.rows.length} casualties`);
+    
     return result.rows;
   } catch (err) {
     const error = err as Error;

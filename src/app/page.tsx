@@ -1,9 +1,8 @@
 import BoxGrid from "./box";
 import InfoText from "./info/InfoText";
-import Title from "./title";
 import IntroContent from "./info/Intro";
 import DeathsGraph from "./info/deaths-graph";
-import { SummaryData, fetchSummaryData } from "./data/summary-info";
+import { fetchSummaryData } from "./data/summary-info";
 import { getNames } from "./data/names";
 
 export default async function Home() {

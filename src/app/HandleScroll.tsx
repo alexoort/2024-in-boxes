@@ -16,7 +16,6 @@ export function useScrolledBoxes() {
           ? 6 // md:grid-cols-6
           : 4; // grid-cols-4
 
-      const viewportHeight = window.innerHeight;
       const scrollPosition = window.scrollY;
       const totalHeightPerRow = boxHeight + gap;
 

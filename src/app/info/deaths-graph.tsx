@@ -22,7 +22,7 @@ export default function DeathsGraph() {
       try {
         const summaryData = await fetchSummaryData();
         setData(summaryData);
-      } catch (err) {
+      } catch {
         setError("Failed to fetch data");
       }
     };
