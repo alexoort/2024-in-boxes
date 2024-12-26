@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
+
 export default function IntroContent() {
   return (
     <div className="space-y-2">
