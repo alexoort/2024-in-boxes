@@ -22,7 +22,15 @@ export function useScrolledBoxes() {
       // Calculate how many complete rows have been scrolled past
       const rowsScrolled = Math.floor(scrollPosition / totalHeightPerRow);
       // Calculate boxes scrolled based on rows and boxes per row
-      const boxesScrolled = rowsScrolled * boxesPerRow;
+      const boxesScrolled = Math.max(0, rowsScrolled * boxesPerRow);
+
+      console.log("Scroll Calculation:", {
+        scrollPosition,
+        totalHeightPerRow,
+        rowsScrolled,
+        boxesPerRow,
+        boxesScrolled,
+      });
 
       setScrolledBoxes(boxesScrolled);
     };

@@ -74,7 +74,6 @@ export async function getCasualties(): Promise<Casualty[]> {
         name, en_name, id, dob, sex, age, source
       FROM casualties 
       ORDER BY created_at DESC
-      LIMIT 1000
     `);
     
     return result.rows;

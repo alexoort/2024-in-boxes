@@ -11,7 +11,7 @@ interface InfoTextProps {
 
 export default function InfoText({
   content,
-  source = "3",
+  source = "",
   startBox = 200,
   endBox = 300,
 }: InfoTextProps) {
