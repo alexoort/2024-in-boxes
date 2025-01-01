@@ -7,7 +7,10 @@ interface FatalityRatiosProps {
 
 const FatalityRatios: FC<FatalityRatiosProps> = ({ startBox, endBox }) => {
   return (
-    <div className="w-full flex flex-col items-center gap-12 py-8">
+    <div
+      className="w-full flex flex-col items-center gap-12 py-8"
+      style={{ height: `${(endBox - startBox) * 22}px` }}
+    >
       {/* Women and Children ratio */}
       <div className="w-full max-w-3xl">
         <h2 className="text-xl font-bold text-center mb-4">

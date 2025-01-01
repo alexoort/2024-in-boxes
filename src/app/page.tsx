@@ -32,8 +32,11 @@ export default async function Home() {
   const heightPerRow = boxHeight + gap;
 
   const firstGridRow = 10;
-
-  const secondGridRow = Math.floor(storyEnd / boxesPerRow);
+  // Calculate second grid position based on story height and SingleGrave margins
+  const singleGraveMargins = 5000; // 1000px + 4000px from SingleGrave margins
+  const secondGridRow =
+    Math.ceil(storyEnd / boxesPerRow) +
+    Math.ceil(singleGraveMargins / heightPerRow);
 
   return (
     <main className="min-h-screen">

@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useScrolledBoxes } from "../HandleScroll";
-import { Casualty } from "../data/names";
 import Image from "next/image";
 
 interface SingleGraveProps {
@@ -118,8 +117,8 @@ export default function SingleGrave({ startBox, endBox }: SingleGraveProps) {
                 killed.
               </p>
               <p className="text-lg" data-aos="fade-up" data-aos-delay="800">
-                Two weeks later, Hind's body, along with her entire family's,
-                was recovered.
+                Two weeks later, Hind&apos;s body, along with her entire
+                family&apos;s, was recovered.
               </p>
             </div>
           </div>
